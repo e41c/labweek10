@@ -1,51 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-class MyForm extends React.Component {
-  render() {
-    return (
-      <form>
-        <div className="form-group">
-            <h1>Sign Up</h1>
-            </div>
-        <div className="form-group">
-          <label>Email</label>
-          <input type="email" className="form-control" />
-        </div>
-        <div className="form-group">
-          <label>Full Name</label>
-          <input type="text" className="form-control" />
-        </div>
-        <div className="form-row">
-          <div className="form-group col-md-6">
-            <label>Address</label>
-            <input type="text" className="form-control" />
-          </div>
-          <div className="form-group col-md-6">
-            <label>Apartment, studio, or floor</label>
-            <input type="text" className="form-control" />
-          </div>
-        </div>
-        <div className="form-row">
-          <div className="form-group col-md-6">
-            <label>City</label>
-            <input type="text" className="form-control" />
-          </div>
-          <div className="form-group col-md-4">
-            <label>Province</label>
-            <select className="form-control">
-              <option>Choose...</option>
-              <option>...</option>
-            </select>
-          </div>
-          <div className="form-group col-md-2">
-            <label>Postal Code</label>
-            <input type="text" className="form-control" />
-          </div>
-        </div>
-        <button type="submit" className="btn btn-primary">Sign in</button>
+function MyForm() {
+  const [form, setForm] = useState({
+    email: '',
+    fullName: '',
+    address: '',
+    city: '',
+    province: '',
+    postalCode: ''
+  });
+
+  const handleChange = e => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log(form);
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input type="email" name="email" onChange={handleChange} placeholder="Email" />
+        <input type="text" name="fullName" onChange={handleChange} placeholder="Full Name" />
+        <input type="text" name="address" onChange={handleChange} placeholder="Address" />
+        <input type="text" name="city" onChange={handleChange} placeholder="City" />
+        <input type="text" name="province" onChange={handleChange} placeholder="Province" />
+        <input type="text" name="postalCode" onChange={handleChange} placeholder="Postal Code" />
+        <button type="submit">Submit</button>
       </form>
-    );
-  }
+      <div>
+        <p>Email: {form.email}</p>
+        <p>Full Name: {form.fullName}</p>
+        <p>Address: {form.address}</p>
+        <p>City: {form.city}</p>
+        <p>Province: {form.province}</p>
+        <p>Postal Code: {form.postalCode}</p>
+      </div>
+    </div>
+  );
 }
 
 export default MyForm;
